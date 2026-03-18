@@ -1,0 +1,119 @@
+﻿
+@model ShoppingCart
+
+<form method="post">
+    <input hidden asp-for="ProductId" />
+    <div class="container mt-4">
+        <div class="card shadow-lg border-0">
+
+            <!-- Header -->
+            <div class="card-header text-center py-4">
+                <h2 class="text-info text-uppercase mb-1">@Model.Product.Title</h2>
+                <p class="text-secondary fw-semibold mb-0">by @Model.Product.Author</p>
+            </div>
+
+            <div class="card-body p-4">
+
+                <!-- Back Button -->
+                <div class="mb-4">
+                    <a asp-action="Index"
+                       class="btn btn-outline-info btn-sm text-uppercase fw-semibold">
+                        <i class="bi bi-arrow-left"></i> Back
+                    </a>
+                </div>
+
+                <div class="row g-4">
+
+                    <!-- Image -->
+                    <div class="col-lg-5 text-center">
+                        <img src="@Model.Product.ImageUrl"
+                             class="img-fluid rounded shadow-sm"
+                             style="max-height:420px;" />
+                    </div>
+
+                    <!-- Product Info -->
+                    <div class="col-lg-7">
+
+                        <!-- Category -->
+                        <div class="mb-3">
+                            <span class="badge bg-info text-dark px-3 py-2">
+                                @Model.Product.Category.Name
+                            </span>
+                        </div>
+
+                        <!-- ISBN -->
+                        <div class="mb-2">
+                            <span class="text-secondary">ISBN:</span>
+                            <span class="fw-semibold">@Model.Product.ISBN</span>
+                        </div>
+
+                        <!-- List Price -->
+                        <div class="mb-4">
+                            <span class="text-secondary">List Price:</span>
+                            <span class="text-decoration-line-through text-secondary">
+                                @Model.Product.ListPrice.ToString("c")
+                            </span>
+                        </div>
+
+                        <!-- Pricing Table -->
+                        <div class="border rounded mb-4">
+
+                            <div class="row text-center border-bottom py-2">
+                                <div class="col-3 text-secondary fw-semibold">Qty</div>
+                                <div class="col-3 text-secondary fw-semibold">1-50</div>
+                                <div class="col-3 text-secondary fw-semibold">51-100</div>
+                                <div class="col-3 text-secondary fw-semibold">100+</div>
+                            </div>
+
+                            <div class="row text-center py-2">
+                                <div class="col-3 text-info fw-bold">Price</div>
+                                <div class="col-3 text-info fw-bold">@Model.Product.Price.ToString("c")</div>
+                                <div class="col-3 text-info fw-bold">@Model.Product.Price50.ToString("c")</div>
+                                <div class="col-3 text-info fw-bold">@Model.Product.Price100.ToString("c")</div>
+                            </div>
+
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-4">
+                            <h6 class="text-info">Description</h6>
+                            <p class="text-secondary">
+                                @Html.Raw(Model.Product.Description)
+                            </p>
+                        </div>
+
+                        <!-- Quantity + Button -->
+                        <div class="row g-3 align-items-end">
+
+                            <div class="col-md-3">
+                                <label class="form-label text-secondary">Quantity</label>
+                                <input type="number"
+                                       value="1"
+                                       asp-for="Count"
+                                       aria-label="Sizing example input" 
+                                       aria-describedby="inputGroup-sizing-default"
+                                       class="form-control text-center" />
+                            </div>
+
+                            <div class="col-md-5">
+                                <button type="submit"
+                                        
+                                        class="btn btn-info w-100 py-2 fw-semibold text-uppercase">
+                                    Add to Cart
+                                </button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+

@@ -1,0 +1,150 @@
+﻿@model ProductVM
+
+<div class="container py-5">
+
+    <div class="card border-0 shadow-lg">
+
+        <div class="card-header bg-primary text-center py-3">
+            <h3 class="text-white mb-0">
+                @(Model.Product.Id != 0 ? "Update Product" : "Create Product")
+            </h3>
+        </div>
+
+        <div class="card-body p-4">
+
+            <form method="post" enctype="multipart/form-data">
+
+                <input asp-for="Product.Id" hidden />
+                <input asp-for="Product.ImageUrl" hidden />
+
+                <div class="row">
+
+                    <!-- LEFT SIDE FORM -->
+                    <div class="col-lg-9">
+
+                        <div class="row g-3">
+
+                            <div class="col-12 form-floating">
+                                <input asp-for="Product.Title" class="form-control border-0 shadow" />
+                                <label asp-for="Product.Title"></label>
+                                <span asp-validation-for="Product.Title" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-12">
+                                <label asp-for="Product.Description" class="form-label text-muted"></label>
+                                <textarea asp-for="Product.Description"
+                                class="form-control border-0 shadow"
+                                rows="3"></textarea>
+                            </div>
+
+                            <div class="col-md-6 form-floating">
+                                <input asp-for="Product.ISBN" class="form-control border-0 shadow" />
+                                <label asp-for="Product.ISBN"></label>
+                            </div>
+
+                            <div class="col-md-6 form-floating">
+                                <input asp-for="Product.Author" class="form-control border-0 shadow" />
+                                <label asp-for="Product.Author"></label>
+                            </div>
+
+                            <div class="col-md-6 form-floating">
+                                <input asp-for="Product.ListPrice" class="form-control border-0 shadow" />
+                                <label asp-for="Product.ListPrice"></label>
+                            </div>
+
+                            <div class="col-md-6 form-floating">
+                                <input asp-for="Product.Price" class="form-control border-0 shadow" />
+                                <label asp-for="Product.Price"></label>
+                            </div>
+
+                            <div class="col-md-6 form-floating">
+                                <input asp-for="Product.Price50" class="form-control border-0 shadow" />
+                                <label asp-for="Product.Price50"></label>
+                            </div>
+
+                            <div class="col-md-6 form-floating">
+                                <input asp-for="Product.Price100" class="form-control border-0 shadow" />
+                                <label asp-for="Product.Price100"></label>
+                            </div>
+
+                            <div class="col-md-6 form-floating">
+                                <select asp-for="Product.CategoryId"
+                                        asp-items="Model.CategoryList"
+                                        class="form-select border-0 shadow">
+
+                                    <option disabled selected>-- Select Category --</option>
+
+                                </select>
+
+                                <label asp-for="Product.CategoryId"></label>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label asp-for="Product.ImageUrl" class="form-label text-muted"></label>
+                                <input type="file" name="file" class="form-control border-0 shadow" />
+                            </div>
+
+                        </div>
+
+                        <!-- BUTTONS -->
+                        <div class="d-flex gap-3 mt-4">
+
+                            <button type="submit" class="btn btn-primary px-4">
+                                @(Model.Product.Id != 0 ? "Update" : "Create")
+                            </button>
+
+                            <a asp-controller="Product"
+                               asp-action="Index"
+                               class="btn btn-outline-light px-4">
+                                Back to List
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT SIDE IMAGE -->
+                    <div class="col-lg-3 text-center">
+
+                        @if (!string.IsNullOrEmpty(Model.Product.ImageUrl))
+                        {
+                            <img src="@Url.Content(Model.Product.ImageUrl)"
+                                 class="img-fluid rounded shadow"
+                                 style="max-height:250px; object-fit:cover;" />
+                        }
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+@section Scripts {
+    <script>
+        tinymce.init({
+          selector: 'textarea',
+          plugins: [
+            // Core editing features
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+            // Your account includes a free trial of TinyMCE premium features
+            // Try the most popular premium features until Mar 24, 2026:
+            'checklist', 'mediaembed', 'casechange', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'advtemplate', 'ai', 'uploadcare', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown','importword', 'exportword', 'exportpdf'
+          ],
+          toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography uploadcare | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name',
+          mergetags_list: [
+            { value: 'First.Name', title: 'First Name' },
+            { value: 'Email', title: 'Email' },
+          ],
+          ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+          uploadcare_public_key: 'd637f68e42bc204ef2a5',
+        });
+    </script>
+    <partial name="_ValidationScriptsPartial" />
+}

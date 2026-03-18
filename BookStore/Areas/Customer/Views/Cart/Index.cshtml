@@ -1,0 +1,172 @@
+﻿@model ShoppingCartVM
+
+<form method="post">
+
+    <div class="container py-5">
+
+        <div class="card border-0 shadow-lg">
+
+            <div class="card-header bg-primary text-white py-3">
+                <div class="row px-3">
+                    <div class="col-6">
+                        <h4 class="mb-0">
+                            <i class="bi bi-cart3 me-2"></i>Shopping Cart
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+
+                <div class="row mb-4">
+
+                    <div class="col-md-3">
+                        <a asp-area="Customer"
+                           asp-controller="Home"
+                           asp-action="Index"
+                           class="btn btn-outline-light btn-sm text-uppercase">
+
+                            Continue Shopping
+
+                        </a>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-12">
+
+                        @foreach (var item in Model.ShoppingCartList)
+                        {
+                            <div class="row border-bottom pb-4 mb-3 align-items-center">
+
+                                <!-- Image -->
+                                <div class="col-lg-1 d-none d-lg-block text-center">
+                                    <img src="@item.Product.ImageUrl"
+                                         class="img-fluid rounded shadow-sm" />
+                                </div>
+
+                                <!-- Product Info -->
+                                <div class="col-12 col-lg-6">
+
+                                    <h5 class="text-uppercase fw-semibold">
+                                        @item.Product.Title
+                                    </h5>
+
+                                    <p class="text-muted small">
+                                        @Html.Raw(item.Product.Description)
+                                    </p>
+
+                                </div>
+
+                                <!-- Quantity + Buttons -->
+                                <div class="col-12 col-lg-5">
+
+                                    <div class="row align-items-center text-center">
+
+                                        <div class="col-3">
+                                            <h6 class="fw-semibold">
+
+                                                @item.Price.ToString("c")
+
+                                                <span class="text-muted">x</span>
+
+                                                @item.Count
+
+                                            </h6>
+                                        </div>
+
+                                        <div class="col-6">
+
+                                            <div class="btn-group">
+
+                                                <a asp-action="plus"
+                                                   asp-route-cartId="@item.Id"
+                                                   class="btn btn-outline-primary btn-sm">
+
+                                                    <i class="bi bi-plus"></i>
+
+                                                </a>
+
+                                                <a asp-action="minus"
+                                                   asp-route-cartId="@item.Id"
+                                                   class="btn btn-outline-primary btn-sm">
+
+                                                    <i class="bi bi-dash"></i>
+
+                                                </a>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="col-3">
+
+                                            <a asp-action="remove"
+                                               asp-route-cartId="@item.Id"
+                                               class="btn btn-danger btn-sm">
+
+                                                <i class="bi bi-trash-fill"></i>
+
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="card-footer border-0 bg-transparent p-4">
+
+                <div class="row justify-content-center">
+
+                    <div class="col-md-4">
+
+                        <ul class="list-group mb-3">
+
+                            <li class="list-group-item d-flex justify-content-between">
+
+                                <strong>Total</strong>
+
+                                <strong>@Model.OrderHeader.OrderTotal.ToString("c")</strong>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+                <div class="row justify-content-center">
+
+                    <div class="col-md-3">
+
+                        <a asp-action="Summary"
+                           class="btn btn-primary w-100">
+
+                            Proceed to Summary
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
