@@ -30,7 +30,7 @@ namespace Book.DataAccess.DbInitializer
 
         public void Initialize()
         {
-            throw new NotImplementedException();
+            
 
 
             //migrations if they are not applied
